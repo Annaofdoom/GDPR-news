@@ -27,7 +27,7 @@ const recievedNews = (newsdata) => {
 let image = article.urlToImage
 
 if (article.urlToImage === null) {
-  image = "https://cdn.pixabay.com/photo/2017/01/04/12/01/space-1951858_1280.png"
+  image = "http://superawesomevectors.com/wp-content/uploads/2013/09/rocket-800x565.jpg"
 }
 
 			//Here we create and add html elements to our html file
