@@ -9,11 +9,11 @@ const myFunction = () => {
 
 // What you want to print on your page goes here:
 const key = "f71ab5246b4f4be59eed747e9bbd57b3"
-const url = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,google-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&q=(gdpr)OR(data)AND(protection)&apiKey=${key}`
+const url = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,google-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&sortBy=publishedAt&q=(gdpr)OR(data)AND(protection)&pageSize=21&apiKey=${key}`
 
-const gdprUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&q=gdpr&apiKey=${key}`
-const dataprotectionUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&q=(data)AND(protection)&apiKey=${key}`
-const everythingUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&q=(gdpr)OR(data)AND(protection)&apiKey=${key}`
+const gdprUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&pageSize=21&q=gdpr&sortBy=publishedAt&apiKey=${key}`
+const dataprotectionUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&pageSize=21&sortBy=publishedAt&q=(data)AND(protection)&apiKey=${key}`
+const everythingUrl = `https://newsapi.org/v2/everything?sources=the-washington-post,wired,the-new-york-times,the-wall-street-journal,the-guardian-uk,techradar,metro,hacker-news,financial-times,cnn,svenska-dagbladet,techcrunch,the-economist&pageSize=21&sortBy=publishedAt&q=(gdpr)OR(data)AND(protection)&apiKey=${key}`
 
 const articlesDiv = document.querySelector(".articles")
 const button1 = document.querySelector(".button1")
@@ -22,25 +22,31 @@ const button3 = document.querySelector(".button3")
 
 const recievedNews = (newsdata) => {
     articlesDiv.innerHTML = null
-    newsdata.articles.forEach((article) => {
+    newsdata.articles
 
-let image = article.urlToImage
+    .forEach((article) => {
 
-if (article.urlToImage === null) {
-  image = "http://superawesomevectors.com/wp-content/uploads/2013/09/rocket-800x565.jpg"
-}
+        let image = article.urlToImage
 
-			//Here we create and add html elements to our html file
+        if (article.urlToImage === null) {
+          image = "http://superawesomevectors.com/wp-content/uploads/2013/09/rocket-800x565.jpg"
+        }
 
-      const div = document.createElement("div")
-      div.className = "news"
-      div.innerHTML =
-      `<img src="${image}"/>
-      <a target = '_blank' href="${article.url}"><h2>${article.title}</h2></a>
-      <a target = '_blank' href="${article.url}"><h4>${article.source.name}</h4></a>
-      <a target = '_blank' href="${article.url}"><h3>${article.description}</h3>`
+        const date = article.publishedAt.split("T")[0]
 
-      articlesDiv.appendChild(div)
+
+    			//Here we create and add html elements to our html file
+
+          const div = document.createElement("div")
+          div.className = "news"
+          div.innerHTML =
+          `<img src="${image}"/>
+          <a target = '_blank' href="${article.url}"><h2>${article.title}</h2></a>
+          <a target = '_blank' href="${article.url}"><h4>${article.source.name}</h4></a>
+          <a target = '_blank' href="${article.url}"><h4>${date}</h4></a>
+          <a target = '_blank' href="${article.url}"><h3>${article.description}</h3></a>`
+
+          articlesDiv.appendChild(div)
 
 
     })
